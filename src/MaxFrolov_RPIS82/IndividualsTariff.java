@@ -32,7 +32,7 @@ public class IndividualsTariff {
             this.services = newServices;
         }
 
-        for(int i = 0; i < this.services.length; ++i) {
+        for (int i = 0; i < this.services.length; ++i) {
             if (this.services[i] == null) {
                 this.services[i] = service;
                 ++this.size;
@@ -60,7 +60,7 @@ public class IndividualsTariff {
     }
 
     public Service get(String name) {
-        for(int i = 0; i < this.services.length; ++i) {
+        for (int i = 0; i < this.services.length; ++i) {
             if (this.services[i].getName().equalsIgnoreCase(name)) {
                 return this.services[i];
             }
@@ -70,7 +70,7 @@ public class IndividualsTariff {
     }
 
     public boolean exists(String serviceName) {
-        for(int i = 0; i < this.services.length; ++i) {
+        for (int i = 0; i < this.services.length; ++i) {
             if (this.services[i].getName().equalsIgnoreCase(serviceName)) {
                 return true;
             }
@@ -93,7 +93,7 @@ public class IndividualsTariff {
     }
 
     public Service delete(String name) {
-        for(int i = 0; i < this.services.length; ++i) {
+        for (int i = 0; i < this.services.length; ++i) {
             if (this.services[i].getName().equalsIgnoreCase(name)) {
                 Service deleted = this.services[i];
                 System.arraycopy(this.services, i + 1, this.services, i, this.size - i);
@@ -119,12 +119,12 @@ public class IndividualsTariff {
     public Service[] getSortedServices() {
         Service[] out = this.getServices();
 
-        for(int k = out.length / 2; k > 0; k /= 2) {
-            for(int i = k; i < out.length; ++i) {
+        for (int k = out.length / 2; k > 0; k /= 2) {
+            for (int i = k; i < out.length; ++i) {
                 Service temp = out[i];
 
                 int j;
-                for(j = i; j >= k && temp.getCost() < out[j - k].getCost(); j -= k) {
+                for (j = i; j >= k && temp.getCost() < out[j - k].getCost(); j -= k) {
                     out[j] = out[j - k];
                 }
 
@@ -138,9 +138,10 @@ public class IndividualsTariff {
     public int getCost() {
         int totalCost = 50;
 
-        for(int i = 0; i < this.size; ++i) {
+        for (int i = 0; i < this.size; ++i) {
             totalCost += this.services[i].getCost();
         }
 
         return totalCost;
     }
+}
