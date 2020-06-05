@@ -10,7 +10,7 @@ public class AccountManager {
         this.capacity = initialCapacity;
     }
 
-    public AccountManager(Account[] accounts) {
+    public AccountManager(IndividualAccount[] accounts) {
         Account[] newAccounts = new Account[accounts.length];
         System.arraycopy(accounts, 0, newAccounts, 0, accounts.length);
         this.capacity = this.size = accounts.length;
@@ -74,8 +74,8 @@ public class AccountManager {
 
     public IndividualsTariff getTariff(int id) {
         for(int i = 0; i < this.accounts.length; ++i) {
-            if (this.accounts[i].getId() == id) {
-                return this.accounts[i].getTariff();
+            if (((IndividualAccount)this.accounts[i]).getId() == id) {
+                return ((IndividualAccount)this.accounts[i]).getTariff();
             }
         }
 
@@ -84,9 +84,9 @@ public class AccountManager {
 
     public IndividualsTariff changeTariff(int id, IndividualsTariff tariff) {
         for(int i = 0; i < this.accounts.length; ++i) {
-            if (this.accounts[i].getId() == id) {
-                IndividualsTariff oldTariff = this.accounts[i].getTariff();
-                this.accounts[i].setTariff(tariff);
+            if (((IndividualAccount)this.accounts[i]).getId() == id) {
+                IndividualsTariff oldTariff = ((IndividualAccount)this.accounts[i]).getTariff();
+                ((IndividualAccount)this.accounts[i]).setTariff(tariff);
                 return oldTariff;
             }
         }
