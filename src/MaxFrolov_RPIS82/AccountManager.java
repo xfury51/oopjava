@@ -1,25 +1,27 @@
 package MaxFrolov_RPIS82;
 
+import java.util.ArrayList;
+
 public class AccountManager {
-    private Account[] accounts;
+    private IndividualAccount[] accounts;
     private int capacity;
     private int size;
 
     public AccountManager(int initialCapacity) {
-        this.accounts = new Account[this.capacity];
+        this.accounts = new IndividualAccount[this.capacity];
         this.capacity = initialCapacity;
     }
 
     public AccountManager(IndividualAccount[] accounts) {
-        Account[] newAccounts = new Account[accounts.length];
+        IndividualAccount[] newAccounts = new IndividualAccount[accounts.length];
         System.arraycopy(accounts, 0, newAccounts, 0, accounts.length);
         this.capacity = this.size = accounts.length;
         this.accounts = newAccounts;
     }
 
-    public boolean add(Account account) {
+    public boolean add(IndividualAccount account) {
         if (this.size == this.capacity) {
-            Account[] newAccounts = new Account[this.capacity *= 2];
+            IndividualAccount[] newAccounts = new IndividualAccount[this.capacity *= 2];
             System.arraycopy(this.accounts, 0, newAccounts, 0, this.accounts.length);
             this.accounts = newAccounts;
         }
@@ -35,7 +37,7 @@ public class AccountManager {
         return false;
     }
 
-    public boolean add(Account account, int position) {
+    public boolean add(IndividualAccount account, int position) {
         if (position < 0 | position > this.capacity) {
             return false;
         } else if (this.accounts[position] == null) {
@@ -51,14 +53,14 @@ public class AccountManager {
         return this.accounts[position];
     }
 
-    public Account rewrite(Account account, int position) {
-        Account oldAccount = this.accounts[position];
+    public Account rewrite(IndividualAccount account, int position) {
+        IndividualAccount oldAccount = this.accounts[position];
         this.accounts[position] = account;
         return oldAccount;
     }
 
-    public Account delete(int position) {
-        Account deleted = this.accounts[position];
+    public IndividualAccount delete(int position) {
+        IndividualAccount deleted = this.accounts[position];
         System.arraycopy(this.accounts, position + 1, this.accounts, position, this.size - position);
         this.accounts[this.size--] = null;
         return deleted;
@@ -93,4 +95,15 @@ public class AccountManager {
 
         return null;
     }
+
+    public Service[] getSeervices(ServiceTypes serviceType)
+    {
+        ArrayList<Service> s=new ArrayList<>();
+        for (IndividualAccount acc: accounts) {
+            for(Service serv:acc.getTariff().getServices())
+            if(serv.getServiceType().equals(serviceType))s.add(serv);
+        }
+        return (Service[]) s.toArray();
+    }
+
 }
