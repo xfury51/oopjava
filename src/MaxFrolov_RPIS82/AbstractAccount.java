@@ -1,12 +1,27 @@
 package MaxFrolov_RPIS82;
 
+import java.time.LocalDate;
+
 public class AbstractAccount implements Account {
     private long number;
     private Tariff tariff;
-    protected AbstractAccount(long number,Tariff tariff)
+    LocalDate activationDate;
+    protected AbstractAccount(long number,Tariff tariff,LocalDate activationDate)
     {
+        if(number<1000000000001L||number>999999999999999L)
+            throw new IllegalAccountNumber();
+        if(activationDate==null)
+            throw new NullPointerException();
+        if(activationDate.isAfter(LocalDate.now()))
+            throw new IllegalArgumentException();
         this.number=number;
         this.tariff=tariff;
+        this.activationDate=activationDate;
+    }
+
+    @Override
+    public LocalDate getActivationDate() {
+        return activationDate;
     }
 
     public AbstractAccount() {
